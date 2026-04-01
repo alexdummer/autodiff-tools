@@ -1,8 +1,21 @@
+"""Analytical reference implementations for the Neo-Hookean hyperelastic material model.
+
+Provides the strain energy density function Psi(C) and its first and second derivatives
+with respect to the right Cauchy-Green deformation tensor C, all computed analytically.
+These serve as the reference solution for validating automatic differentiation results.
+"""
+
 import numpy as np
 
 
 def det33(matrix):
+    """Computes the determinant of a 3x3 matrix using the explicit cofactor formula.
 
+    Args:
+        matrix: 3x3 numpy array
+    Returns:
+        det: scalar determinant of the matrix
+    """
     a = matrix[0, 0]
     b = matrix[0, 1]
     c = matrix[0, 2]
@@ -17,6 +30,14 @@ def det33(matrix):
 
 
 def adjoint33(matrix):
+    """Computes the adjoint (transpose of the cofactor matrix) of a 3x3 matrix.
+
+    Args:
+        matrix: 3x3 numpy array
+    Returns:
+        adjnt: 3x3 numpy array, the adjoint of the input matrix.
+               Satisfies matrix @ adjnt = det(matrix) * I.
+    """
     a11 = matrix[0, 0]
     a22 = matrix[1, 1]
     a33 = matrix[2, 2]
@@ -47,7 +68,19 @@ def adjoint33(matrix):
 
 
 def psi(C: np.ndarray, K: float, G: float) -> float:
+    """Evaluates the Neo-Hookean strain energy density Psi(C).
 
+    Psi(C) = K/8 * (J - 1/J)^2 + G/2 * (tr(C) * J^(-2/3) - 3)
+
+    where J = sqrt(det(C)) is the volume ratio.
+
+    Args:
+        C: 3x3 numpy array, right Cauchy-Green deformation tensor
+        K: bulk modulus (scalar)
+        G: shear modulus (scalar)
+    Returns:
+        psi: scalar strain energy density value
+    """
     J = det33(C) ** (1.0 / 2)
     trC = C[0, 0] + C[1, 1] + C[2, 2]
 
@@ -55,7 +88,18 @@ def psi(C: np.ndarray, K: float, G: float) -> float:
 
 
 def dPsi_dC_analytical(C: np.ndarray, K: float, G: float) -> np.ndarray:
+    """Computes the first derivative of Psi with respect to C analytically.
 
+    Returns dPsi/dC, the second Piola-Kirchhoff stress (up to a factor of 2),
+    evaluated by applying the chain rule to the closed-form expression for Psi.
+
+    Args:
+        C: 3x3 numpy array, right Cauchy-Green deformation tensor
+        K: bulk modulus (scalar)
+        G: shear modulus (scalar)
+    Returns:
+        dPsi_dC: 3x3 numpy array of first derivatives of Psi with respect to C
+    """
     detC = det33(C)
     J = detC ** (1.0 / 2)
     trC = C.trace()
@@ -73,7 +117,18 @@ def dPsi_dC_analytical(C: np.ndarray, K: float, G: float) -> np.ndarray:
 
 
 def d2Psi_dC_dC_analytical(C: np.ndarray, K: float, G: float) -> np.ndarray:
+    """Computes the second derivative of Psi with respect to C analytically.
 
+    Returns d2Psi/dC/dC, the material tangent moduli (up to a factor of 4),
+    evaluated by applying the chain rule twice to the closed-form expression for Psi.
+
+    Args:
+        C: 3x3 numpy array, right Cauchy-Green deformation tensor
+        K: bulk modulus (scalar)
+        G: shear modulus (scalar)
+    Returns:
+        d2Psi_dC_dC: 3x3x3x3 numpy array of second derivatives of Psi with respect to C
+    """
     detC = det33(C)
     J = detC ** (1.0 / 2)
     trC = C.trace()

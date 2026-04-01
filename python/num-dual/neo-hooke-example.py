@@ -1,3 +1,11 @@
+"""Neo-Hookean example using num-dual (hyper-)dual number differentiation.
+
+Computes the first and second derivatives of the Neo-Hookean strain energy density
+Psi(C) with respect to the right Cauchy-Green deformation tensor C using the
+num-dual library (forward-mode AD via dual and hyper-dual numbers). Results are
+compared against the analytical reference implementation and runtimes are reported.
+"""
+
 import sys
 import time
 
@@ -33,7 +41,7 @@ if __name__ == "__main__":
     toc = time.time()
     time_num_dual = toc - tic
 
-    # summarize results only report errors and time taken for numerical derivatives
+    # summarize results and report errors and time taken for numerical derivatives
     error_dPsi_dC = np.linalg.norm(dPsi_dC_anltcl - dPsi_dC_num_dual)
     error_d2Psi_dC_dC = np.linalg.norm(d2Psi_dC_dC_anltcl - d2Psi_dC_dC_num_dual)
     print(f"Error in dPsi/dC: {error_dPsi_dC:.4e}")

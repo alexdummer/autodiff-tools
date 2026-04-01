@@ -1,3 +1,11 @@
+"""Neo-Hookean example using PyTorch automatic differentiation.
+
+Computes the first and second derivatives of the Neo-Hookean strain energy density
+Psi(C) with respect to the right Cauchy-Green deformation tensor C using the
+PyTorch library (operator-overloading reverse-mode AD). Results are compared
+against the analytical reference implementation and runtimes are reported.
+"""
+
 import sys
 import time
 
@@ -33,7 +41,7 @@ if __name__ == "__main__":
     toc = time.time()
     time_pytorch = toc - tic
 
-    # summarize results only report errors and time taken for numerical derivatives
+    # summarize results and report errors and time taken for numerical derivatives
     error_dPsi_dC = np.linalg.norm(dPsi_dC_anltcl - dPsi_dC_pytorch)
     error_d2Psi_dC_dC = np.linalg.norm(d2Psi_dC_dC_anltcl - d2Psi_dC_dC_pytorch)
     print(f"Error in dPsi/dC: {error_dPsi_dC:.4e}")
