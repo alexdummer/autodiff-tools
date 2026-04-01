@@ -14,13 +14,14 @@ Usage
 """
 
 import argparse
-import importlib
+import importlib.util
+import os
 import sys
 import time
 
 import numpy as np
 
-sys.path.append("utils")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "utils"))
 from neohooke import d2Psi_dC_dC_analytical, dPsi_dC_analytical, psi  # noqa: E402
 
 BACKENDS = ["autograd", "jax", "num-dual", "pytorch"]
@@ -41,7 +42,10 @@ if __name__ == "__main__":
     args = parse_args()
 
     # import df_dT and d2f_dT2 from the selected backend
-    interface = importlib.import_module(f"{args.backend}.interface")
+    interface_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), args.backend, "interface.py")
+    spec = importlib.util.spec_from_file_location(f"{args.backend}.interface", interface_path)
+    interface = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(interface)
     df_dT = interface.df_dT
     d2f_dT2 = interface.d2f_dT2
 
