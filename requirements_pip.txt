@@ -1,1 +1,4 @@
+autograd
+jax
 num-dual
+torch
