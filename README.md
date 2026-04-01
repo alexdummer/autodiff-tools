@@ -22,11 +22,14 @@ conda install --file requirements_conda.txt  # conda
 
 ## Usage
 
-Run an example from within its directory:
+Run the unified example from the `python/` directory, selecting the desired backend:
 
 ```bash
-cd python/<tool>   # autograd | jax | num-dual | pytorch
-python neo-hooke-example.py
+cd python
+python neo-hooke-example.py --backend autograd   # operator-overloading reverse-mode AD
+python neo-hooke-example.py --backend jax        # JIT-compiled reverse-mode AD
+python neo-hooke-example.py --backend num-dual   # forward-mode AD via dual numbers
+python neo-hooke-example.py --backend pytorch    # operator-overloading reverse-mode AD
 ```
 
-Each script reports the derivative errors relative to the analytical solution and the runtime of both approaches.
+Each run reports the derivative errors relative to the analytical solution and the runtime of both approaches.

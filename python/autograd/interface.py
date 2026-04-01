@@ -4,7 +4,7 @@ import autograd
 import numpy as np
 
 
-def df_dT_autograd(f: Callable, T: np.ndarray) -> np.ndarray:
+def df_dT(f: Callable, T: np.ndarray) -> np.ndarray:
     """Computes the first derivative of a function f with respect to T using autograd automatic differentiation.
     Args:
         f: function that takes a numpy array as input and returns a scalar output
@@ -15,7 +15,7 @@ def df_dT_autograd(f: Callable, T: np.ndarray) -> np.ndarray:
     return autograd.grad(f)(T.astype(np.float64))
 
 
-def d2f_dT2_autograd(f: Callable, T: np.ndarray) -> np.ndarray:
+def d2f_dT2(f: Callable, T: np.ndarray) -> np.ndarray:
     """Computes the second derivative of a function f with respect to T using autograd automatic differentiation.
     Args:
         f: function that takes a numpy array as input and returns a scalar output

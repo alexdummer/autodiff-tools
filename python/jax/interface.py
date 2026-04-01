@@ -7,7 +7,7 @@ import numpy as np
 jax.config.update("jax_enable_x64", True)
 
 
-def df_dT_jax(f: Callable, T: np.ndarray) -> np.ndarray:
+def df_dT(f: Callable, T: np.ndarray) -> np.ndarray:
     """Computes the first derivative of a function f with respect to T using JAX automatic differentiation.
     Args:
         f: function that takes a JAX array as input and returns a scalar output
@@ -19,7 +19,7 @@ def df_dT_jax(f: Callable, T: np.ndarray) -> np.ndarray:
     return np.array(jax.grad(f)(T_jax))
 
 
-def d2f_dT2_jax(f: Callable, T: np.ndarray) -> np.ndarray:
+def d2f_dT2(f: Callable, T: np.ndarray) -> np.ndarray:
     """Computes the second derivative of a function f with respect to T using JAX automatic differentiation.
     Args:
         f: function that takes a JAX array as input and returns a scalar output

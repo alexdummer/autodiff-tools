@@ -37,7 +37,7 @@ def makeHyperDual(T: np.ndarray) -> np.ndarray:
     return T_hd
 
 
-def df_dT_num_dual(f: Callable, T: np.ndarray) -> np.ndarray:
+def df_dT(f: Callable, T: np.ndarray) -> np.ndarray:
     """Computes the first derivative of a function f with respect to T using dual numbers.
     Args:
         f: function that takes a numpy array as input and returns a scalar output
@@ -65,7 +65,7 @@ def df_dT_num_dual(f: Callable, T: np.ndarray) -> np.ndarray:
     return df_dT
 
 
-def d2f_dT2_num_dual(f: Callable, T: np.ndarray) -> np.ndarray:
+def d2f_dT2(f: Callable, T: np.ndarray) -> np.ndarray:
     """Computes the second derivative of a function f with respect to T using hyper dual numbers.
     Args:
         f: function that takes a numpy array as input and returns a scalar output

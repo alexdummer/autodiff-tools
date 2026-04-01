@@ -4,7 +4,7 @@ import numpy as np
 import torch
 
 
-def df_dT_pytorch(f: Callable, T: np.ndarray) -> np.ndarray:
+def df_dT(f: Callable, T: np.ndarray) -> np.ndarray:
     """Computes the first derivative of a function f with respect to T using PyTorch automatic differentiation.
     Args:
         f: function that takes a PyTorch tensor as input and returns a scalar tensor output
@@ -17,7 +17,7 @@ def df_dT_pytorch(f: Callable, T: np.ndarray) -> np.ndarray:
     return result.numpy()
 
 
-def d2f_dT2_pytorch(f: Callable, T: np.ndarray) -> np.ndarray:
+def d2f_dT2(f: Callable, T: np.ndarray) -> np.ndarray:
     """Computes the second derivative of a function f with respect to T using PyTorch automatic differentiation.
     Args:
         f: function that takes a PyTorch tensor as input and returns a scalar tensor output
