@@ -1,0 +1,37 @@
+name: Run autodiff examples
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  run-examples:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements_pip.txt
+
+      - name: Run num-dual example
+        working-directory: python/num-dual
+        run: python neo-hooke-example.py
+
+      - name: Run autograd example
+        working-directory: python/autograd
+        run: python neo-hooke-example.py
+
+      - name: Run JAX example
+        working-directory: python/jax
+        run: python neo-hooke-example.py
+
+      - name: Run PyTorch example
+        working-directory: python/pytorch
+        run: python neo-hooke-example.py
