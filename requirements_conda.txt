@@ -1,0 +1,8 @@
+autodiff
+cmake
+compilers
+eigen
+make
+numpy
+pre-commit
+scipy
