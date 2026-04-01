@@ -25,17 +25,17 @@ jobs:
         run: pip install -r requirements_pip.txt
 
       - name: Run num-dual example
-        working-directory: python/num-dual
-        run: python neo-hooke-example.py
+        working-directory: python
+        run: python neo-hooke-example.py --backend num-dual
 
       - name: Run autograd example
-        working-directory: python/autograd
-        run: python neo-hooke-example.py
+        working-directory: python
+        run: python neo-hooke-example.py --backend autograd
 
       - name: Run JAX example
-        working-directory: python/jax
-        run: python neo-hooke-example.py
+        working-directory: python
+        run: python neo-hooke-example.py --backend jax
 
       - name: Run PyTorch example
-        working-directory: python/pytorch
-        run: python neo-hooke-example.py
+        working-directory: python
+        run: python neo-hooke-example.py --backend pytorch
